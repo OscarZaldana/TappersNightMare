@@ -4,6 +4,9 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
 	public float movespeed;
+	public int ammoMax;
+	public int ammoCur;
+	public int ammoPickupAmt;
 
 	public GameObject bullet;
 
@@ -43,7 +46,24 @@ public class Player : MonoBehaviour
 
 	void Shoot()
 	{
-		Instantiate(bullet, new Vector3(transform.position.x, 1.7f, transform.position.z),
-			Quaternion.Euler(transform.eulerAngles.x,transform.eulerAngles.y,0));
+		if (ammoCur > 0)
+		{
+			ammoCur -= 1;
+			Instantiate(bullet, new Vector3(transform.position.x, 1.7f, transform.position.z),
+				Quaternion.Euler(transform.eulerAngles.x,transform.eulerAngles.y,0));
+		}
+	}
+
+	void OnCollisionEnter(Collision other)
+	{
+		if (other.gameObject.layer == 12)
+		{
+			ammoCur += ammoPickupAmt;
+
+			if (ammoCur > ammoMax)
+				ammoCur = ammoMax;
+
+			Destroy(other.gameObject);
+		}
 	}
 }
