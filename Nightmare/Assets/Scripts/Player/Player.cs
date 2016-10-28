@@ -5,6 +5,8 @@ public class Player : MonoBehaviour
 {
 	public float movespeed;
 
+	public GameObject bullet;
+
 	bool paused = false;
 	bool hasWeapon = true;
 
@@ -28,17 +30,20 @@ public class Player : MonoBehaviour
 			if (Input.GetKey(KeyCode.S))	moveZ -= 1;
 			if (Input.GetKey(KeyCode.A))	moveX -= 1;
 			if (Input.GetKey(KeyCode.D))	moveX += 1;
-			transform.Translate(new Vector3(moveX, 0, moveZ) * movespeed);
-			transform.position = new Vector3 (transform.position.x, 3, transform.position.z);
+			transform.Translate(new Vector3(moveX, 0, moveZ) * movespeed * Time.deltaTime);
+			transform.position = new Vector3 (transform.position.x, 2, transform.position.z);
 		}
 		else 
 		{
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
+			transform.position = new Vector3 (transform.position.x, 2, transform.position.y);
 		}
 	}
 
 	void Shoot()
 	{
+		Instantiate(bullet, new Vector3(transform.position.x, 1.7f, transform.position.z),
+			Quaternion.Euler(transform.eulerAngles.x,transform.eulerAngles.y,0));
 	}
 }
