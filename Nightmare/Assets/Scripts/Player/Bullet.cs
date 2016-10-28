@@ -18,5 +18,6 @@ public class Bullet : MonoBehaviour
 	void OnCollisionEnter(Collision other)
 	{
 		other.gameObject.SendMessage("Hurt");
+		Destroy(gameObject);
 	}
 }
