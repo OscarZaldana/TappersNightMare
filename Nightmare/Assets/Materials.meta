@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 2a98d0350820aa9458fded9374627196
 folderAsset: yes
 timeCreated: 1477675035
+=======
+guid: 5108d95b128b2ef46ba572c3fc5816b6
+folderAsset: yes
+timeCreated: 1477685381
+>>>>>>> oscar
 licenseType: Free
 DefaultImporter:
   userData: 

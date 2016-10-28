@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/GageTest.unity
+=======
+- path: Assets/HorrorMainScene.unity
+>>>>>>> oscar
   isLoaded: 1
   isActive: 1
