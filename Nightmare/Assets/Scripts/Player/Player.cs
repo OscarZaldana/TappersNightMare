@@ -4,6 +4,11 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
 	public float movespeed;
+	public int ammoMax;
+	public int ammoCur;
+	public int ammoPickupAmt;
+
+	public GameObject bullet;
 
 	bool paused = false;
 	bool hasWeapon = true;
@@ -28,17 +33,37 @@ public class Player : MonoBehaviour
 			if (Input.GetKey(KeyCode.S))	moveZ -= 1;
 			if (Input.GetKey(KeyCode.A))	moveX -= 1;
 			if (Input.GetKey(KeyCode.D))	moveX += 1;
-			transform.Translate(new Vector3(moveX, 0, moveZ) * movespeed);
-			transform.position = new Vector3 (transform.position.x, 3, transform.position.z);
+			transform.Translate(new Vector3(moveX, 0, moveZ) * movespeed * Time.deltaTime);
+			transform.position = new Vector3 (transform.position.x, 2, transform.position.z);
 		}
 		else 
 		{
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
+			transform.position = new Vector3 (transform.position.x, 2, transform.position.y);
 		}
 	}
 
 	void Shoot()
 	{
+		if (ammoCur > 0)
+		{
+			ammoCur -= 1;
+			Instantiate(bullet, new Vector3(transform.position.x, 1.7f, transform.position.z),
+				Quaternion.Euler(transform.eulerAngles.x,transform.eulerAngles.y,0));
+		}
+	}
+
+	void OnCollisionEnter(Collision other)
+	{
+		if (other.gameObject.layer == 12)
+		{
+			ammoCur += ammoPickupAmt;
+
+			if (ammoCur > ammoMax)
+				ammoCur = ammoMax;
+
+			Destroy(other.gameObject);
+		}
 	}
 }
