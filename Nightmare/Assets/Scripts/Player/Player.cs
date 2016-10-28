@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
 		{
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
+			transform.position = new Vector3 (transform.position.x, 3, transform.position.y);
 		}
 	}
 
